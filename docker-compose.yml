@@ -1,0 +1,23 @@
+
+services:
+  api1:
+    build:
+      context: ./api1
+    expose:
+      - "5001"
+
+  api2:
+    build:
+      context: ./api2
+    expose:
+      - "5002"
+
+  nginx:
+    image: nginx:latest
+    ports:
+      - "8888:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - api1
+      - api2
